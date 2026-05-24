@@ -171,6 +171,26 @@
   }
   .chart-card canvas { max-height: 140px; }
 
+
+  /* ── Chart Readout (touch-friendly) ── */
+  .chart-readout {
+    height: 30px;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-size: 14px; font-weight: 600;
+    color: var(--accent);
+    border-bottom: 1px solid var(--node-border);
+    margin-bottom: 12px;
+    transition: opacity 0.15s;
+  }
+  .chart-readout .r-hint {
+    font-weight: 400; font-style: italic; font-size: 12px; color: var(--muted);
+  }
+  .chart-readout .r-km { color: var(--accent); }
+  .chart-readout .r-sep { color: var(--muted); font-weight: 300; }
+  .chart-readout .r-ele { color: var(--text); }
+  .chart-card canvas { max-height: 140px; touch-action: none; cursor: crosshair; }
+
   /* ── Timeline ── */
   .timeline { position: relative; padding-left: 36px; }
   .timeline::before {
@@ -301,8 +321,8 @@
   <p class="site-subtitle">4-Day Cycling Adventure, North to South</p>
   <div class="trip-stats">
     <div class="trip-stat">
-      <span class="trip-stat-val">129.9</span>
-      <span class="trip-stat-label">Total Miles</span>
+      <span class="trip-stat-val">209.0</span>
+      <span class="trip-stat-label">Total km</span>
     </div>
     <div class="trip-stat">
       <span class="trip-stat-val">6,962</span>
@@ -336,8 +356,8 @@
 
   <div class="day-stats-bar">
     <div class="day-stat-card">
-      <span class="val">36.6</span>
-      <span class="lbl">Miles</span>
+      <span class="val">58.9</span>
+      <span class="lbl">km</span>
     </div>
     <div class="day-stat-card">
       <span class="val">+1,903</span>
@@ -354,6 +374,7 @@
   </div>
 
   <div class="chart-card">
+    <div class="chart-readout" id="readout-0"><span class="r-hint">Touch or hover to inspect elevation</span></div>
     <div class="chart-label">Elevation Profile</div>
     <canvas id="chart-0"></canvas>
   </div>
@@ -370,7 +391,7 @@
         </div>
         <div class="weather-badge loading" id="w0_0">⏳ Loading…</div>
       </div>
-      <div class="wpt-direction">➡️ Heading SE → Les Toits du Monde (26.2 mi as the crow flies)</div>
+      <div class="wpt-direction">➡️ Heading SE → Les Toits du Monde (42.2 km as the crow flies)</div>
     </div>
     <div class="segment">
       <div class="segment-label">Along the Way</div>
@@ -381,7 +402,7 @@
             <div class="poi-name">Café-Bistro Au Vieux Moulin</div>
             <div class="poi-note">Local favourite near the trailhead in Mont-Laurier</div>
           </div>
-          <span class="poi-mile">~3.5 mi</span>
+          <span class="poi-mile">~5.6 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🏙️</span>
@@ -389,7 +410,7 @@
             <div class="poi-name">Village de L'Annonciation</div>
             <div class="poi-note">Services, convenience store, water refill</div>
           </div>
-          <span class="poi-mile">~12.0 mi</span>
+          <span class="poi-mile">~19.3 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">💧</span>
@@ -397,7 +418,7 @@
             <div class="poi-name">Fontaine Publique</div>
             <div class="poi-note">Water station on trail in L'Annonciation</div>
           </div>
-          <span class="poi-mile">~12.3 mi</span>
+          <span class="poi-mile">~19.8 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🌊</span>
@@ -405,7 +426,7 @@
             <div class="poi-name">Rivière du Lièvre Crossing</div>
             <div class="poi-note">Scenic old railway bridge over the river valley</div>
           </div>
-          <span class="poi-mile">~19.5 mi</span>
+          <span class="poi-mile">~31.4 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🏪</span>
@@ -413,7 +434,7 @@
             <div class="poi-name">Village de Labelle</div>
             <div class="poi-note">Grocery, cafés, bike supplies</div>
           </div>
-          <span class="poi-mile">~25.8 mi</span>
+          <span class="poi-mile">~41.5 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">☕</span>
@@ -421,7 +442,7 @@
             <div class="poi-name">Café Pédaler</div>
             <div class="poi-note">Trail-side espresso stop in Labelle</div>
           </div>
-          <span class="poi-mile">~26.2 mi</span>
+          <span class="poi-mile">~42.2 km</span>
         </li>
       </ul>
     </div>
@@ -430,7 +451,7 @@
         <div class="wpt-info">
           <span class="wpt-icon">🏡</span><span class="wpt-name">Les Toits du Monde</span>
           <div class="wpt-meta">
-            <span>📍 36.6 mi</span>
+            <span>📍 58.9 km</span>
             <span>⛰ 977 ft</span>
           </div>
         </div>
@@ -448,8 +469,8 @@
 
   <div class="day-stats-bar">
     <div class="day-stat-card">
-      <span class="val">40.5</span>
-      <span class="lbl">Miles</span>
+      <span class="val">65.2</span>
+      <span class="lbl">km</span>
     </div>
     <div class="day-stat-card">
       <span class="val">+1,693</span>
@@ -466,6 +487,7 @@
   </div>
 
   <div class="chart-card">
+    <div class="chart-readout" id="readout-1"><span class="r-hint">Touch or hover to inspect elevation</span></div>
     <div class="chart-label">Elevation Profile</div>
     <canvas id="chart-1"></canvas>
   </div>
@@ -482,7 +504,7 @@
         </div>
         <div class="weather-badge loading" id="w1_0">⏳ Loading…</div>
       </div>
-      <div class="wpt-direction">➡️ Heading SE → Camping De La Diable (25.5 mi as the crow flies)</div>
+      <div class="wpt-direction">➡️ Heading SE → Camping De La Diable (41.0 km as the crow flies)</div>
     </div>
     <div class="segment">
       <div class="segment-label">Along the Way</div>
@@ -493,7 +515,7 @@
             <div class="poi-name">Village de Rivière-Rouge</div>
             <div class="poi-note">First major services, restaurants & bakeries</div>
           </div>
-          <span class="poi-mile">~5.5 mi</span>
+          <span class="poi-mile">~8.9 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🛒</span>
@@ -501,7 +523,7 @@
             <div class="poi-name">IGA Rivière-Rouge</div>
             <div class="poi-note">Stock up here — services are sparse ahead</div>
           </div>
-          <span class="poi-mile">~5.8 mi</span>
+          <span class="poi-mile">~9.3 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">💧</span>
@@ -509,7 +531,7 @@
             <div class="poi-name">Fontaine — L'Ascension</div>
             <div class="poi-note">Water refill stop in village of L'Ascension</div>
           </div>
-          <span class="poi-mile">~13.0 mi</span>
+          <span class="poi-mile">~20.9 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🌊</span>
@@ -517,7 +539,7 @@
             <div class="poi-name">Rivière du Diable Gorge Overlook</div>
             <div class="poi-note">Stunning view of the gorge from the old rail bridge</div>
           </div>
-          <span class="poi-mile">~22.0 mi</span>
+          <span class="poi-mile">~35.4 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🏕️</span>
@@ -525,7 +547,7 @@
             <div class="poi-name">Aire de Repos — La Macaza</div>
             <div class="poi-note">Official trail rest area with picnic tables & benches</div>
           </div>
-          <span class="poi-mile">~28.5 mi</span>
+          <span class="poi-mile">~45.9 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🌲</span>
@@ -533,7 +555,7 @@
             <div class="poi-name">Parc du Mont-Tremblant Boundary</div>
             <div class="poi-note">Entering the protected Laurentians park territory</div>
           </div>
-          <span class="poi-mile">~35.0 mi</span>
+          <span class="poi-mile">~56.3 km</span>
         </li>
       </ul>
     </div>
@@ -542,7 +564,7 @@
         <div class="wpt-info">
           <span class="wpt-icon">⛺</span><span class="wpt-name">Camping De La Diable</span>
           <div class="wpt-meta">
-            <span>📍 40.5 mi</span>
+            <span>📍 65.2 km</span>
             <span>⛰ 655 ft</span>
           </div>
         </div>
@@ -560,8 +582,8 @@
 
   <div class="day-stats-bar">
     <div class="day-stat-card">
-      <span class="val">34.4</span>
-      <span class="lbl">Miles</span>
+      <span class="val">55.4</span>
+      <span class="lbl">km</span>
     </div>
     <div class="day-stat-card">
       <span class="val">+2,776</span>
@@ -578,6 +600,7 @@
   </div>
 
   <div class="chart-card">
+    <div class="chart-readout" id="readout-2"><span class="r-hint">Touch or hover to inspect elevation</span></div>
     <div class="chart-label">Elevation Profile</div>
     <canvas id="chart-2"></canvas>
   </div>
@@ -594,7 +617,7 @@
         </div>
         <div class="weather-badge loading" id="w2_0">⏳ Loading…</div>
       </div>
-      <div class="wpt-direction">➡️ Heading SE → Auberge et Spa Beaux Reves (24.5 mi as the crow flies)</div>
+      <div class="wpt-direction">➡️ Heading SE → Auberge et Spa Beaux Reves (39.4 km as the crow flies)</div>
     </div>
     <div class="segment">
       <div class="segment-label">Along the Way</div>
@@ -605,7 +628,7 @@
             <div class="poi-name">Saint-Jovite (Mont-Tremblant)</div>
             <div class="poi-note">Largest town of the trip — full services, restaurants</div>
           </div>
-          <span class="poi-mile">~5.0 mi</span>
+          <span class="poi-mile">~8.0 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🚴</span>
@@ -613,7 +636,7 @@
             <div class="poi-name">Vélo Mont-Tremblant</div>
             <div class="poi-note">Full repairs, tubes, trail gear</div>
           </div>
-          <span class="poi-mile">~5.3 mi</span>
+          <span class="poi-mile">~8.5 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🌊</span>
@@ -621,7 +644,7 @@
             <div class="poi-name">Lac Ouimet Viewpoint</div>
             <div class="poi-note">Crystal-clear mountain lake visible from trail</div>
           </div>
-          <span class="poi-mile">~12.5 mi</span>
+          <span class="poi-mile">~20.1 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">☕</span>
@@ -629,7 +652,7 @@
             <div class="poi-name">Café de la Gare — Saint-Faustin</div>
             <div class="poi-note">Charming heritage café in a historic station building</div>
           </div>
-          <span class="poi-mile">~19.0 mi</span>
+          <span class="poi-mile">~30.6 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">💧</span>
@@ -637,7 +660,7 @@
             <div class="poi-name">Fontaine — Sainte-Agathe</div>
             <div class="poi-note">Water station and benches on trail</div>
           </div>
-          <span class="poi-mile">~27.0 mi</span>
+          <span class="poi-mile">~43.5 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🌅</span>
@@ -645,7 +668,7 @@
             <div class="poi-name">Lac des Sables Overlook</div>
             <div class="poi-note">Iconic Laurentians lake view — great photo stop</div>
           </div>
-          <span class="poi-mile">~31.0 mi</span>
+          <span class="poi-mile">~49.9 km</span>
         </li>
       </ul>
     </div>
@@ -654,7 +677,7 @@
         <div class="wpt-info">
           <span class="wpt-icon">🛁</span><span class="wpt-name">Auberge et Spa Beaux Reves</span>
           <div class="wpt-meta">
-            <span>📍 34.4 mi</span>
+            <span>📍 55.4 km</span>
             <span>⛰ 909 ft</span>
           </div>
         </div>
@@ -672,8 +695,8 @@
 
   <div class="day-stats-bar">
     <div class="day-stat-card">
-      <span class="val">18.4</span>
-      <span class="lbl">Miles</span>
+      <span class="val">29.6</span>
+      <span class="lbl">km</span>
     </div>
     <div class="day-stat-card">
       <span class="val">+590</span>
@@ -690,6 +713,7 @@
   </div>
 
   <div class="chart-card">
+    <div class="chart-readout" id="readout-3"><span class="r-hint">Touch or hover to inspect elevation</span></div>
     <div class="chart-label">Elevation Profile</div>
     <canvas id="chart-3"></canvas>
   </div>
@@ -706,7 +730,7 @@
         </div>
         <div class="weather-badge loading" id="w3_0">⏳ Loading…</div>
       </div>
-      <div class="wpt-direction">➡️ Heading SE → Place de la Gare (14.9 mi as the crow flies)</div>
+      <div class="wpt-direction">➡️ Heading SE → Place de la Gare (24.0 km as the crow flies)</div>
     </div>
     <div class="segment">
       <div class="segment-label">Along the Way</div>
@@ -717,7 +741,7 @@
             <div class="poi-name">Café du Sentier</div>
             <div class="poi-note">Popular trail café — perfect morning fuel stop</div>
           </div>
-          <span class="poi-mile">~3.0 mi</span>
+          <span class="poi-mile">~4.8 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🏙️</span>
@@ -725,7 +749,7 @@
             <div class="poi-name">Village de Prévost</div>
             <div class="poi-note">Last full services before the finish</div>
           </div>
-          <span class="poi-mile">~9.5 mi</span>
+          <span class="poi-mile">~15.3 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🌲</span>
@@ -733,7 +757,7 @@
             <div class="poi-name">Forêt des Laurentides — Final Corridor</div>
             <div class="poi-note">Peaceful shaded forest stretch before the finish</div>
           </div>
-          <span class="poi-mile">~13.0 mi</span>
+          <span class="poi-mile">~20.9 km</span>
         </li>
         <li class="poi-item">
           <span class="poi-emoji">🏁</span>
@@ -741,7 +765,7 @@
             <div class="poi-name">Approaching Place de la Gare</div>
             <div class="poi-note">Trail widens as you enter the historic station area</div>
           </div>
-          <span class="poi-mile">~17.5 mi</span>
+          <span class="poi-mile">~28.2 km</span>
         </li>
       </ul>
     </div>
@@ -750,7 +774,7 @@
         <div class="wpt-info">
           <span class="wpt-icon">🏁</span><span class="wpt-name">Place de la Gare</span>
           <div class="wpt-meta">
-            <span>📍 18.4 mi</span>
+            <span>📍 29.6 km</span>
             <span>⛰ 303 ft</span>
           </div>
         </div>
@@ -771,14 +795,13 @@
 // ─── Route Data ───────────────────────────────────────────────────────────────
 const ROUTE = {"days": [{"label": "Day 1", "sub": "Mont-Laurier \u2192 Les Toits du Monde", "dist": 36.6, "gain": 1903, "waypoints": [{"name": "Metro Mont-Laurier", "lat": 46.55143795, "lon": -75.48635394, "ele_m": 231.5, "cum_mi": 0.0, "ele_ft": 760, "next_dist": 26.2, "next_bearing": "SE"}, {"name": "Les Toits du Monde", "lat": 46.377568, "lon": -74.997816, "ele_m": 297.8, "cum_mi": 36.6, "ele_ft": 977}], "profile": [{"d": 0.0, "e": 760}, {"d": 0.15, "e": 765}, {"d": 0.37, "e": 758}, {"d": 0.46, "e": 738}, {"d": 0.51, "e": 736}, {"d": 0.66, "e": 745}, {"d": 0.71, "e": 749}, {"d": 0.93, "e": 748}, {"d": 1.21, "e": 749}, {"d": 1.51, "e": 750}, {"d": 1.78, "e": 750}, {"d": 2.04, "e": 757}, {"d": 2.25, "e": 762}, {"d": 2.47, "e": 762}, {"d": 2.72, "e": 747}, {"d": 2.98, "e": 749}, {"d": 3.25, "e": 754}, {"d": 3.48, "e": 761}, {"d": 3.67, "e": 751}, {"d": 3.9, "e": 769}, {"d": 4.08, "e": 796}, {"d": 4.3, "e": 759}, {"d": 4.52, "e": 776}, {"d": 4.78, "e": 785}, {"d": 4.96, "e": 796}, {"d": 5.23, "e": 769}, {"d": 5.53, "e": 770}, {"d": 5.81, "e": 775}, {"d": 5.98, "e": 768}, {"d": 6.17, "e": 770}, {"d": 6.3, "e": 786}, {"d": 6.56, "e": 797}, {"d": 6.76, "e": 787}, {"d": 6.94, "e": 793}, {"d": 7.2, "e": 797}, {"d": 7.51, "e": 784}, {"d": 7.75, "e": 778}, {"d": 8.0, "e": 784}, {"d": 8.22, "e": 795}, {"d": 8.51, "e": 803}, {"d": 8.8, "e": 800}, {"d": 9.09, "e": 803}, {"d": 9.39, "e": 819}, {"d": 9.63, "e": 848}, {"d": 9.85, "e": 838}, {"d": 10.04, "e": 848}, {"d": 10.3, "e": 843}, {"d": 10.53, "e": 874}, {"d": 10.71, "e": 876}, {"d": 10.94, "e": 884}, {"d": 11.15, "e": 860}, {"d": 11.31, "e": 885}, {"d": 11.51, "e": 900}, {"d": 11.7, "e": 875}, {"d": 11.94, "e": 898}, {"d": 12.13, "e": 913}, {"d": 12.29, "e": 913}, {"d": 12.45, "e": 942}, {"d": 12.68, "e": 912}, {"d": 12.85, "e": 937}, {"d": 13.02, "e": 945}, {"d": 13.21, "e": 944}, {"d": 13.39, "e": 967}, {"d": 13.59, "e": 956}, {"d": 13.79, "e": 975}, {"d": 14.03, "e": 988}, {"d": 14.25, "e": 1004}, {"d": 14.51, "e": 1009}, {"d": 14.72, "e": 1001}, {"d": 15.0, "e": 1010}, {"d": 15.18, "e": 1023}, {"d": 15.4, "e": 1020}, {"d": 15.57, "e": 1033}, {"d": 15.7, "e": 1048}, {"d": 15.95, "e": 1056}, {"d": 16.11, "e": 1038}, {"d": 16.29, "e": 1040}, {"d": 16.43, "e": 1077}, {"d": 16.67, "e": 1088}, {"d": 16.84, "e": 1100}, {"d": 16.96, "e": 1102}, {"d": 17.24, "e": 1120}, {"d": 17.48, "e": 1129}, {"d": 17.7, "e": 1131}, {"d": 17.91, "e": 1100}, {"d": 18.14, "e": 1106}, {"d": 18.41, "e": 1115}, {"d": 18.61, "e": 1108}, {"d": 18.75, "e": 1122}, {"d": 18.91, "e": 1117}, {"d": 19.16, "e": 1131}, {"d": 19.47, "e": 1132}, {"d": 19.71, "e": 1142}, {"d": 19.92, "e": 1141}, {"d": 20.16, "e": 1135}, {"d": 20.38, "e": 1139}, {"d": 20.62, "e": 1141}, {"d": 20.91, "e": 1129}, {"d": 21.15, "e": 1126}, {"d": 21.42, "e": 1124}, {"d": 21.71, "e": 1124}, {"d": 21.98, "e": 1126}, {"d": 22.23, "e": 1101}, {"d": 22.52, "e": 1094}, {"d": 22.71, "e": 1100}, {"d": 22.92, "e": 1102}, {"d": 23.15, "e": 1095}, {"d": 23.27, "e": 1075}, {"d": 23.47, "e": 1068}, {"d": 23.71, "e": 1046}, {"d": 23.89, "e": 1053}, {"d": 24.04, "e": 1061}, {"d": 24.32, "e": 1050}, {"d": 24.54, "e": 1044}, {"d": 24.74, "e": 1052}, {"d": 24.86, "e": 1039}, {"d": 24.99, "e": 1041}, {"d": 25.25, "e": 1028}, {"d": 25.47, "e": 1014}, {"d": 25.69, "e": 1008}, {"d": 25.89, "e": 995}, {"d": 26.11, "e": 992}, {"d": 26.28, "e": 977}, {"d": 26.47, "e": 974}, {"d": 26.69, "e": 970}, {"d": 26.9, "e": 952}, {"d": 27.09, "e": 928}, {"d": 27.35, "e": 908}, {"d": 27.55, "e": 908}, {"d": 27.77, "e": 881}, {"d": 27.93, "e": 891}, {"d": 28.08, "e": 871}, {"d": 28.38, "e": 879}, {"d": 28.53, "e": 870}, {"d": 28.71, "e": 870}, {"d": 28.89, "e": 869}, {"d": 29.11, "e": 858}, {"d": 29.4, "e": 861}, {"d": 29.68, "e": 850}, {"d": 29.9, "e": 863}, {"d": 30.12, "e": 855}, {"d": 30.39, "e": 853}, {"d": 30.66, "e": 855}, {"d": 30.87, "e": 847}, {"d": 31.09, "e": 847}, {"d": 31.26, "e": 843}, {"d": 31.52, "e": 839}, {"d": 31.81, "e": 843}, {"d": 32.02, "e": 846}, {"d": 32.22, "e": 843}, {"d": 32.45, "e": 831}, {"d": 32.72, "e": 833}, {"d": 32.94, "e": 851}, {"d": 33.19, "e": 851}, {"d": 33.48, "e": 838}, {"d": 33.7, "e": 827}, {"d": 33.94, "e": 834}, {"d": 34.05, "e": 837}, {"d": 34.15, "e": 834}, {"d": 34.44, "e": 839}, {"d": 34.72, "e": 830}, {"d": 34.94, "e": 824}, {"d": 35.17, "e": 819}, {"d": 35.43, "e": 814}, {"d": 35.59, "e": 838}, {"d": 35.74, "e": 872}, {"d": 35.91, "e": 866}, {"d": 36.11, "e": 873}, {"d": 36.25, "e": 894}, {"d": 36.36, "e": 942}, {"d": 36.55, "e": 977}], "pois": [{"emoji": "\u2615", "name": "Caf\u00e9-Bistro Au Vieux Moulin", "type": "caf\u00e9", "note": "Local favourite near the trailhead in Mont-Laurier", "mile": 3.5}, {"emoji": "\ud83c\udfd9\ufe0f", "name": "Village de L'Annonciation", "type": "town", "note": "Services, convenience store, water refill", "mile": 12.0}, {"emoji": "\ud83d\udca7", "name": "Fontaine Publique", "type": "water", "note": "Water station on trail in L'Annonciation", "mile": 12.3}, {"emoji": "\ud83c\udf0a", "name": "Rivi\u00e8re du Li\u00e8vre Crossing", "type": "scenic", "note": "Scenic old railway bridge over the river valley", "mile": 19.5}, {"emoji": "\ud83c\udfea", "name": "Village de Labelle", "type": "town", "note": "Grocery, caf\u00e9s, bike supplies", "mile": 25.8}, {"emoji": "\u2615", "name": "Caf\u00e9 P\u00e9daler", "type": "caf\u00e9", "note": "Trail-side espresso stop in Labelle", "mile": 26.2}]}, {"label": "Day 2", "sub": "Les Toits du Monde \u2192 Camping De La Diable", "dist": 40.5, "gain": 1693, "waypoints": [{"name": "Les Toits du Monde", "lat": 46.377568, "lon": -74.997816, "ele_m": 297.8, "cum_mi": 0.0, "ele_ft": 977, "next_dist": 25.5, "next_bearing": "SE"}, {"name": "Camping De La Diable", "lat": 46.12826, "lon": -74.60476, "ele_m": 199.7, "cum_mi": 40.5, "ele_ft": 655}], "profile": [{"d": 0.0, "e": 977}, {"d": 0.19, "e": 942}, {"d": 0.34, "e": 877}, {"d": 0.51, "e": 865}, {"d": 0.75, "e": 863}, {"d": 0.94, "e": 855}, {"d": 1.12, "e": 844}, {"d": 1.31, "e": 842}, {"d": 1.53, "e": 844}, {"d": 1.88, "e": 836}, {"d": 2.19, "e": 833}, {"d": 2.54, "e": 840}, {"d": 2.86, "e": 847}, {"d": 3.13, "e": 849}, {"d": 3.42, "e": 844}, {"d": 3.79, "e": 862}, {"d": 4.16, "e": 860}, {"d": 4.41, "e": 838}, {"d": 4.66, "e": 831}, {"d": 4.96, "e": 836}, {"d": 5.3, "e": 833}, {"d": 5.63, "e": 854}, {"d": 6.0, "e": 871}, {"d": 6.28, "e": 850}, {"d": 6.57, "e": 847}, {"d": 6.78, "e": 855}, {"d": 6.99, "e": 841}, {"d": 7.35, "e": 859}, {"d": 7.69, "e": 833}, {"d": 7.95, "e": 829}, {"d": 8.29, "e": 809}, {"d": 8.62, "e": 818}, {"d": 8.96, "e": 825}, {"d": 9.25, "e": 815}, {"d": 9.61, "e": 822}, {"d": 9.84, "e": 815}, {"d": 10.09, "e": 809}, {"d": 10.32, "e": 807}, {"d": 10.52, "e": 806}, {"d": 10.68, "e": 796}, {"d": 10.86, "e": 794}, {"d": 11.12, "e": 793}, {"d": 11.42, "e": 805}, {"d": 11.78, "e": 796}, {"d": 12.14, "e": 798}, {"d": 12.45, "e": 800}, {"d": 12.81, "e": 795}, {"d": 13.14, "e": 783}, {"d": 13.4, "e": 805}, {"d": 13.7, "e": 804}, {"d": 14.03, "e": 786}, {"d": 14.37, "e": 789}, {"d": 14.66, "e": 789}, {"d": 14.86, "e": 786}, {"d": 14.96, "e": 811}, {"d": 15.16, "e": 781}, {"d": 15.42, "e": 771}, {"d": 15.68, "e": 777}, {"d": 15.89, "e": 740}, {"d": 16.21, "e": 739}, {"d": 16.49, "e": 762}, {"d": 16.82, "e": 760}, {"d": 17.06, "e": 749}, {"d": 17.22, "e": 760}, {"d": 17.5, "e": 777}, {"d": 17.79, "e": 783}, {"d": 18.12, "e": 770}, {"d": 18.48, "e": 767}, {"d": 18.83, "e": 762}, {"d": 19.06, "e": 774}, {"d": 19.38, "e": 777}, {"d": 19.62, "e": 785}, {"d": 19.92, "e": 781}, {"d": 20.18, "e": 770}, {"d": 20.42, "e": 766}, {"d": 20.78, "e": 761}, {"d": 21.12, "e": 762}, {"d": 21.37, "e": 755}, {"d": 21.68, "e": 766}, {"d": 21.95, "e": 762}, {"d": 22.24, "e": 740}, {"d": 22.6, "e": 739}, {"d": 22.81, "e": 728}, {"d": 23.08, "e": 757}, {"d": 23.41, "e": 735}, {"d": 23.69, "e": 746}, {"d": 23.92, "e": 737}, {"d": 24.07, "e": 741}, {"d": 24.41, "e": 740}, {"d": 24.77, "e": 737}, {"d": 25.14, "e": 729}, {"d": 25.5, "e": 746}, {"d": 25.87, "e": 737}, {"d": 26.24, "e": 741}, {"d": 26.59, "e": 723}, {"d": 26.87, "e": 717}, {"d": 27.17, "e": 721}, {"d": 27.47, "e": 719}, {"d": 27.84, "e": 728}, {"d": 28.21, "e": 716}, {"d": 28.54, "e": 715}, {"d": 28.85, "e": 721}, {"d": 29.18, "e": 713}, {"d": 29.53, "e": 712}, {"d": 29.64, "e": 720}, {"d": 29.89, "e": 696}, {"d": 29.96, "e": 730}, {"d": 30.08, "e": 736}, {"d": 30.19, "e": 739}, {"d": 30.41, "e": 796}, {"d": 30.59, "e": 779}, {"d": 30.71, "e": 783}, {"d": 30.85, "e": 789}, {"d": 31.05, "e": 762}, {"d": 31.21, "e": 751}, {"d": 31.41, "e": 755}, {"d": 31.53, "e": 745}, {"d": 31.61, "e": 753}, {"d": 31.74, "e": 756}, {"d": 31.85, "e": 767}, {"d": 32.07, "e": 760}, {"d": 32.25, "e": 768}, {"d": 32.4, "e": 752}, {"d": 32.61, "e": 753}, {"d": 32.68, "e": 766}, {"d": 32.8, "e": 748}, {"d": 32.96, "e": 752}, {"d": 33.08, "e": 751}, {"d": 33.25, "e": 742}, {"d": 33.35, "e": 757}, {"d": 33.67, "e": 769}, {"d": 33.93, "e": 737}, {"d": 34.13, "e": 734}, {"d": 34.37, "e": 726}, {"d": 34.53, "e": 720}, {"d": 34.6, "e": 717}, {"d": 34.81, "e": 708}, {"d": 34.96, "e": 699}, {"d": 35.2, "e": 719}, {"d": 35.32, "e": 705}, {"d": 35.6, "e": 718}, {"d": 35.76, "e": 700}, {"d": 35.83, "e": 694}, {"d": 35.99, "e": 704}, {"d": 36.07, "e": 690}, {"d": 36.15, "e": 697}, {"d": 36.25, "e": 693}, {"d": 36.31, "e": 687}, {"d": 36.43, "e": 680}, {"d": 36.58, "e": 686}, {"d": 36.69, "e": 699}, {"d": 36.95, "e": 700}, {"d": 37.21, "e": 692}, {"d": 37.49, "e": 683}, {"d": 37.77, "e": 691}, {"d": 37.89, "e": 689}, {"d": 38.08, "e": 691}, {"d": 38.38, "e": 704}, {"d": 38.55, "e": 677}, {"d": 38.76, "e": 704}, {"d": 39.03, "e": 698}, {"d": 39.27, "e": 691}, {"d": 39.49, "e": 661}, {"d": 39.65, "e": 654}, {"d": 39.72, "e": 658}, {"d": 39.8, "e": 652}, {"d": 39.88, "e": 651}, {"d": 40.01, "e": 663}, {"d": 40.24, "e": 677}, {"d": 40.43, "e": 670}], "pois": [{"emoji": "\ud83c\udfd9\ufe0f", "name": "Village de Rivi\u00e8re-Rouge", "type": "town", "note": "First major services, restaurants & bakeries", "mile": 5.5}, {"emoji": "\ud83d\uded2", "name": "IGA Rivi\u00e8re-Rouge", "type": "grocery", "note": "Stock up here \u2014 services are sparse ahead", "mile": 5.8}, {"emoji": "\ud83d\udca7", "name": "Fontaine \u2014 L'Ascension", "type": "water", "note": "Water refill stop in village of L'Ascension", "mile": 13.0}, {"emoji": "\ud83c\udf0a", "name": "Rivi\u00e8re du Diable Gorge Overlook", "type": "scenic", "note": "Stunning view of the gorge from the old rail bridge", "mile": 22.0}, {"emoji": "\ud83c\udfd5\ufe0f", "name": "Aire de Repos \u2014 La Macaza", "type": "rest", "note": "Official trail rest area with picnic tables & benches", "mile": 28.5}, {"emoji": "\ud83c\udf32", "name": "Parc du Mont-Tremblant Boundary", "type": "park", "note": "Entering the protected Laurentians park territory", "mile": 35.0}]}, {"label": "Day 3", "sub": "Camping De La Diable \u2192 Auberge et Spa Beaux R\u00eaves", "dist": 34.4, "gain": 2776, "waypoints": [{"name": "Camping De La Diable", "lat": 46.12826, "lon": -74.60476, "ele_m": 199.7, "cum_mi": 0.0, "ele_ft": 655, "next_dist": 24.5, "next_bearing": "SE"}, {"name": "Auberge et Spa Beaux Reves", "lat": 45.963428, "lon": -74.153526, "ele_m": 277.2, "cum_mi": 34.4, "ele_ft": 909}], "profile": [{"d": 0.0, "e": 655}, {"d": 0.11, "e": 670}, {"d": 0.23, "e": 676}, {"d": 0.29, "e": 675}, {"d": 0.45, "e": 671}, {"d": 0.58, "e": 658}, {"d": 0.68, "e": 647}, {"d": 0.79, "e": 656}, {"d": 0.86, "e": 656}, {"d": 0.97, "e": 651}, {"d": 1.16, "e": 682}, {"d": 1.4, "e": 699}, {"d": 1.67, "e": 699}, {"d": 1.91, "e": 683}, {"d": 2.05, "e": 689}, {"d": 2.27, "e": 703}, {"d": 2.41, "e": 696}, {"d": 2.59, "e": 724}, {"d": 2.7, "e": 720}, {"d": 2.83, "e": 723}, {"d": 2.94, "e": 738}, {"d": 3.05, "e": 743}, {"d": 3.21, "e": 747}, {"d": 3.45, "e": 771}, {"d": 3.63, "e": 776}, {"d": 3.89, "e": 775}, {"d": 4.15, "e": 786}, {"d": 4.27, "e": 789}, {"d": 4.43, "e": 801}, {"d": 4.72, "e": 815}, {"d": 5.01, "e": 839}, {"d": 5.2, "e": 854}, {"d": 5.41, "e": 865}, {"d": 5.64, "e": 881}, {"d": 5.92, "e": 892}, {"d": 6.18, "e": 899}, {"d": 6.45, "e": 913}, {"d": 6.66, "e": 891}, {"d": 6.9, "e": 913}, {"d": 7.03, "e": 925}, {"d": 7.17, "e": 949}, {"d": 7.32, "e": 969}, {"d": 7.5, "e": 987}, {"d": 7.71, "e": 1009}, {"d": 7.99, "e": 1033}, {"d": 8.15, "e": 1051}, {"d": 8.3, "e": 1061}, {"d": 8.53, "e": 1095}, {"d": 8.69, "e": 1099}, {"d": 8.88, "e": 1102}, {"d": 9.07, "e": 1138}, {"d": 9.27, "e": 1147}, {"d": 9.42, "e": 1176}, {"d": 9.59, "e": 1184}, {"d": 9.8, "e": 1231}, {"d": 9.94, "e": 1229}, {"d": 10.06, "e": 1237}, {"d": 10.16, "e": 1251}, {"d": 10.34, "e": 1280}, {"d": 10.47, "e": 1279}, {"d": 10.6, "e": 1284}, {"d": 10.75, "e": 1312}, {"d": 10.86, "e": 1295}, {"d": 11.03, "e": 1315}, {"d": 11.18, "e": 1335}, {"d": 11.32, "e": 1359}, {"d": 11.52, "e": 1387}, {"d": 11.71, "e": 1399}, {"d": 11.89, "e": 1386}, {"d": 12.14, "e": 1367}, {"d": 12.42, "e": 1372}, {"d": 12.77, "e": 1372}, {"d": 13.12, "e": 1385}, {"d": 13.4, "e": 1374}, {"d": 13.57, "e": 1374}, {"d": 13.74, "e": 1357}, {"d": 14.04, "e": 1333}, {"d": 14.23, "e": 1322}, {"d": 14.46, "e": 1315}, {"d": 14.67, "e": 1300}, {"d": 14.83, "e": 1288}, {"d": 14.96, "e": 1287}, {"d": 15.2, "e": 1268}, {"d": 15.36, "e": 1262}, {"d": 15.63, "e": 1255}, {"d": 15.89, "e": 1257}, {"d": 16.23, "e": 1251}, {"d": 16.46, "e": 1269}, {"d": 16.75, "e": 1241}, {"d": 17.11, "e": 1229}, {"d": 17.45, "e": 1222}, {"d": 17.65, "e": 1230}, {"d": 17.87, "e": 1234}, {"d": 18.07, "e": 1224}, {"d": 18.3, "e": 1233}, {"d": 18.62, "e": 1233}, {"d": 18.92, "e": 1223}, {"d": 19.18, "e": 1209}, {"d": 19.41, "e": 1209}, {"d": 19.61, "e": 1218}, {"d": 19.83, "e": 1208}, {"d": 20.08, "e": 1208}, {"d": 20.36, "e": 1200}, {"d": 20.66, "e": 1195}, {"d": 20.9, "e": 1192}, {"d": 21.25, "e": 1201}, {"d": 21.51, "e": 1190}, {"d": 21.77, "e": 1191}, {"d": 22.08, "e": 1205}, {"d": 22.35, "e": 1214}, {"d": 22.62, "e": 1229}, {"d": 22.84, "e": 1250}, {"d": 23.05, "e": 1240}, {"d": 23.25, "e": 1220}, {"d": 23.5, "e": 1203}, {"d": 23.61, "e": 1204}, {"d": 23.71, "e": 1188}, {"d": 23.94, "e": 1188}, {"d": 24.05, "e": 1185}, {"d": 24.23, "e": 1175}, {"d": 24.34, "e": 1156}, {"d": 24.42, "e": 1137}, {"d": 24.63, "e": 1141}, {"d": 24.89, "e": 1121}, {"d": 25.05, "e": 1097}, {"d": 25.34, "e": 1076}, {"d": 25.56, "e": 1078}, {"d": 25.65, "e": 1076}, {"d": 25.7, "e": 1072}, {"d": 25.91, "e": 1064}, {"d": 26.26, "e": 1070}, {"d": 26.58, "e": 1051}, {"d": 26.95, "e": 1051}, {"d": 27.13, "e": 1055}, {"d": 27.28, "e": 1048}, {"d": 27.38, "e": 1053}, {"d": 27.48, "e": 1061}, {"d": 27.69, "e": 1053}, {"d": 27.97, "e": 1032}, {"d": 28.19, "e": 1028}, {"d": 28.53, "e": 1031}, {"d": 28.71, "e": 1027}, {"d": 28.89, "e": 1018}, {"d": 29.13, "e": 1023}, {"d": 29.36, "e": 1048}, {"d": 29.64, "e": 1021}, {"d": 29.83, "e": 1013}, {"d": 29.97, "e": 1011}, {"d": 30.09, "e": 1034}, {"d": 30.34, "e": 1013}, {"d": 30.58, "e": 1039}, {"d": 30.82, "e": 1029}, {"d": 31.1, "e": 1084}, {"d": 31.38, "e": 1090}, {"d": 31.57, "e": 1106}, {"d": 31.83, "e": 1261}, {"d": 32.01, "e": 1297}, {"d": 32.21, "e": 1266}, {"d": 32.4, "e": 1134}, {"d": 32.64, "e": 1046}, {"d": 32.82, "e": 982}, {"d": 32.98, "e": 943}, {"d": 33.08, "e": 933}, {"d": 33.16, "e": 904}, {"d": 33.38, "e": 884}, {"d": 33.55, "e": 804}, {"d": 33.68, "e": 796}, {"d": 33.78, "e": 791}, {"d": 33.92, "e": 760}, {"d": 33.98, "e": 755}, {"d": 34.04, "e": 769}, {"d": 34.08, "e": 775}, {"d": 34.12, "e": 794}, {"d": 34.22, "e": 837}, {"d": 34.39, "e": 902}], "pois": [{"emoji": "\ud83c\udfd9\ufe0f", "name": "Saint-Jovite (Mont-Tremblant)", "type": "town", "note": "Largest town of the trip \u2014 full services, restaurants", "mile": 5.0}, {"emoji": "\ud83d\udeb4", "name": "V\u00e9lo Mont-Tremblant", "type": "bike shop", "note": "Full repairs, tubes, trail gear", "mile": 5.3}, {"emoji": "\ud83c\udf0a", "name": "Lac Ouimet Viewpoint", "type": "scenic", "note": "Crystal-clear mountain lake visible from trail", "mile": 12.5}, {"emoji": "\u2615", "name": "Caf\u00e9 de la Gare \u2014 Saint-Faustin", "type": "caf\u00e9", "note": "Charming heritage caf\u00e9 in a historic station building", "mile": 19.0}, {"emoji": "\ud83d\udca7", "name": "Fontaine \u2014 Sainte-Agathe", "type": "water", "note": "Water station and benches on trail", "mile": 27.0}, {"emoji": "\ud83c\udf05", "name": "Lac des Sables Overlook", "type": "scenic", "note": "Iconic Laurentians lake view \u2014 great photo stop", "mile": 31.0}]}, {"label": "Day 4", "sub": "Auberge et Spa Beaux R\u00eaves \u2192 Place de la Gare", "dist": 18.4, "gain": 590, "waypoints": [{"name": "Auberge et Spa Beaux R\u00eaves", "lat": 45.963428, "lon": -74.153526, "ele_m": 277.2, "cum_mi": 0.0, "ele_ft": 909, "next_dist": 14.9, "next_bearing": "SE"}, {"name": "Place de la Gare", "lat": 45.77648347, "lon": -74.00012613, "ele_m": 92.3, "cum_mi": 18.4, "ele_ft": 303}], "profile": [{"d": 0.0, "e": 909}, {"d": 0.11, "e": 849}, {"d": 0.31, "e": 789}, {"d": 0.43, "e": 796}, {"d": 0.53, "e": 785}, {"d": 0.65, "e": 765}, {"d": 0.67, "e": 753}, {"d": 0.85, "e": 743}, {"d": 1.02, "e": 791}, {"d": 1.06, "e": 803}, {"d": 1.12, "e": 817}, {"d": 1.24, "e": 814}, {"d": 1.39, "e": 804}, {"d": 1.45, "e": 790}, {"d": 1.55, "e": 766}, {"d": 1.68, "e": 723}, {"d": 1.83, "e": 691}, {"d": 2.01, "e": 688}, {"d": 2.06, "e": 677}, {"d": 2.16, "e": 648}, {"d": 2.24, "e": 630}, {"d": 2.27, "e": 624}, {"d": 2.37, "e": 634}, {"d": 2.51, "e": 667}, {"d": 2.63, "e": 675}, {"d": 2.75, "e": 658}, {"d": 2.83, "e": 652}, {"d": 2.91, "e": 662}, {"d": 3.08, "e": 657}, {"d": 3.18, "e": 609}, {"d": 3.23, "e": 598}, {"d": 3.32, "e": 597}, {"d": 3.45, "e": 597}, {"d": 3.58, "e": 597}, {"d": 3.78, "e": 597}, {"d": 3.88, "e": 597}, {"d": 3.97, "e": 597}, {"d": 4.08, "e": 597}, {"d": 4.16, "e": 598}, {"d": 4.29, "e": 594}, {"d": 4.44, "e": 580}, {"d": 4.59, "e": 586}, {"d": 4.68, "e": 589}, {"d": 4.81, "e": 579}, {"d": 4.98, "e": 578}, {"d": 5.14, "e": 579}, {"d": 5.23, "e": 581}, {"d": 5.34, "e": 585}, {"d": 5.48, "e": 588}, {"d": 5.55, "e": 591}, {"d": 5.65, "e": 593}, {"d": 5.82, "e": 599}, {"d": 5.87, "e": 607}, {"d": 5.94, "e": 589}, {"d": 6.0, "e": 579}, {"d": 6.08, "e": 582}, {"d": 6.17, "e": 599}, {"d": 6.32, "e": 587}, {"d": 6.47, "e": 593}, {"d": 6.63, "e": 597}, {"d": 6.76, "e": 590}, {"d": 6.87, "e": 576}, {"d": 7.02, "e": 597}, {"d": 7.11, "e": 597}, {"d": 7.19, "e": 595}, {"d": 7.29, "e": 594}, {"d": 7.34, "e": 595}, {"d": 7.55, "e": 608}, {"d": 7.75, "e": 629}, {"d": 7.94, "e": 594}, {"d": 8.08, "e": 584}, {"d": 8.2, "e": 603}, {"d": 8.33, "e": 597}, {"d": 8.51, "e": 608}, {"d": 8.66, "e": 619}, {"d": 8.86, "e": 616}, {"d": 8.99, "e": 597}, {"d": 9.08, "e": 604}, {"d": 9.24, "e": 663}, {"d": 9.38, "e": 690}, {"d": 9.49, "e": 702}, {"d": 9.56, "e": 695}, {"d": 9.65, "e": 652}, {"d": 9.72, "e": 639}, {"d": 9.79, "e": 635}, {"d": 9.9, "e": 611}, {"d": 9.97, "e": 589}, {"d": 10.06, "e": 567}, {"d": 10.26, "e": 566}, {"d": 10.4, "e": 575}, {"d": 10.54, "e": 570}, {"d": 10.69, "e": 560}, {"d": 10.88, "e": 545}, {"d": 10.99, "e": 537}, {"d": 11.11, "e": 532}, {"d": 11.19, "e": 532}, {"d": 11.3, "e": 538}, {"d": 11.45, "e": 544}, {"d": 11.51, "e": 542}, {"d": 11.67, "e": 549}, {"d": 11.8, "e": 551}, {"d": 11.88, "e": 547}, {"d": 12.13, "e": 547}, {"d": 12.3, "e": 548}, {"d": 12.42, "e": 538}, {"d": 12.6, "e": 530}, {"d": 12.8, "e": 517}, {"d": 12.98, "e": 509}, {"d": 13.11, "e": 510}, {"d": 13.27, "e": 517}, {"d": 13.42, "e": 515}, {"d": 13.58, "e": 508}, {"d": 13.75, "e": 504}, {"d": 13.85, "e": 505}, {"d": 13.93, "e": 508}, {"d": 14.1, "e": 503}, {"d": 14.18, "e": 502}, {"d": 14.31, "e": 498}, {"d": 14.38, "e": 498}, {"d": 14.5, "e": 498}, {"d": 14.66, "e": 498}, {"d": 14.77, "e": 498}, {"d": 14.88, "e": 498}, {"d": 14.98, "e": 489}, {"d": 15.03, "e": 488}, {"d": 15.11, "e": 487}, {"d": 15.17, "e": 471}, {"d": 15.21, "e": 455}, {"d": 15.27, "e": 411}, {"d": 15.33, "e": 396}, {"d": 15.38, "e": 396}, {"d": 15.49, "e": 397}, {"d": 15.58, "e": 397}, {"d": 15.65, "e": 394}, {"d": 15.72, "e": 393}, {"d": 15.89, "e": 396}, {"d": 15.98, "e": 396}, {"d": 16.13, "e": 390}, {"d": 16.29, "e": 380}, {"d": 16.5, "e": 366}, {"d": 16.67, "e": 358}, {"d": 16.89, "e": 347}, {"d": 16.94, "e": 346}, {"d": 17.06, "e": 344}, {"d": 17.23, "e": 336}, {"d": 17.43, "e": 324}, {"d": 17.65, "e": 315}, {"d": 17.87, "e": 310}, {"d": 17.99, "e": 308}, {"d": 18.04, "e": 308}, {"d": 18.24, "e": 308}, {"d": 18.35, "e": 303}], "pois": [{"emoji": "\u2615", "name": "Caf\u00e9 du Sentier", "type": "caf\u00e9", "note": "Popular trail caf\u00e9 \u2014 perfect morning fuel stop", "mile": 3.0}, {"emoji": "\ud83c\udfd9\ufe0f", "name": "Village de Pr\u00e9vost", "type": "town", "note": "Last full services before the finish", "mile": 9.5}, {"emoji": "\ud83c\udf32", "name": "For\u00eat des Laurentides \u2014 Final Corridor", "type": "scenic", "note": "Peaceful shaded forest stretch before the finish", "mile": 13.0}, {"emoji": "\ud83c\udfc1", "name": "Approaching Place de la Gare", "type": "info", "note": "Trail widens as you enter the historic station area", "mile": 17.5}]}], "totals": {"dist": 129.9, "gain": 6962}};
 
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+const MI2KM = 1.60934;
+
 // ─── Tab Switching ────────────────────────────────────────────────────────────
 function showDay(idx) {
-  document.querySelectorAll('.day-panel').forEach((p,i) => {
-    p.classList.toggle('active', i === idx);
-  });
-  document.querySelectorAll('.tab-btn').forEach((b,i) => {
-    b.classList.toggle('active', i === idx);
-  });
+  document.querySelectorAll('.day-panel').forEach((p,i) => p.classList.toggle('active', i === idx));
+  document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i === idx));
 }
 
 // ─── Weather ──────────────────────────────────────────────────────────────────
@@ -794,22 +817,17 @@ const WX_CODE = {
 };
 function wxLabel(code) { return WX_CODE[code] || '🌡 Unknown'; }
 function compassDir(deg) {
-  const dirs = ['N','NE','E','SE','S','SW','W','NW'];
-  return dirs[Math.round(deg/45)%8];
+  return ['N','NE','E','SE','S','SW','W','NW'][Math.round(deg/45)%8];
 }
 async function fetchWeather(lat, lon, elemId) {
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=mph`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=celsius&windspeed_unit=kmh`;
     const res = await fetch(url);
-    const data = await res.json();
-    const cw = data.current_weather;
-    const cond = wxLabel(cw.weathercode);
-    const dir = compassDir(cw.winddirection);
-    const temp = Math.round(cw.temperature);
-    const wind = Math.round(cw.windspeed);
+    const d = await res.json();
+    const cw = d.current_weather;
     const el = document.getElementById(elemId);
     if (el) {
-      el.textContent = `${cond} · ${temp}°F · 💨 ${wind} mph ${dir}`;
+      el.textContent = `${wxLabel(cw.weathercode)} · ${Math.round(cw.temperature)}°C · 💨 ${Math.round(cw.windspeed)} km/h ${compassDir(cw.winddirection)}`;
       el.classList.remove('loading');
     }
   } catch(e) {
@@ -818,43 +836,81 @@ async function fetchWeather(lat, lon, elemId) {
   }
 }
 
+// ─── Crosshair Plugin ─────────────────────────────────────────────────────────
+const crosshairPlugin = {
+  id: 'crosshair',
+  afterDraw(chart) {
+    if (chart._cxX == null) return;
+    const {ctx, chartArea: {top, bottom}} = chart;
+    ctx.save();
+    // Vertical line
+    ctx.beginPath();
+    ctx.moveTo(chart._cxX, top);
+    ctx.lineTo(chart._cxX, bottom);
+    ctx.strokeStyle = 'rgba(74,124,89,0.65)';
+    ctx.lineWidth = 1.5;
+    ctx.setLineDash([5, 4]);
+    ctx.stroke();
+    // Dot on curve
+    if (chart._cxY != null) {
+      ctx.setLineDash([]);
+      ctx.beginPath();
+      ctx.arc(chart._cxX, chart._cxY, 5, 0, Math.PI * 2);
+      ctx.fillStyle = '#4a7c59';
+      ctx.fill();
+      ctx.strokeStyle = '#fff';
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    ctx.restore();
+  }
+};
+Chart.register(crosshairPlugin);
+
 // ─── Charts ───────────────────────────────────────────────────────────────────
+const charts = [];
+
 function buildChart(idx) {
-  const day = ROUTE.days[idx];
-  const prof = day.profile;
-  const ctx = document.getElementById('chart-' + idx);
+  const day  = ROUTE.days[idx];
+  const prof = day.profile;   // d in miles, e in ft
+  const ctx  = document.getElementById('chart-' + idx);
   if (!ctx) return;
-  new Chart(ctx, {
+
+  const kmLabels = prof.map(p => (p.d * MI2KM).toFixed(2));
+
+  const chart = new Chart(ctx, {
     type: 'line',
     data: {
-      labels: prof.map(p => p.d.toFixed(1)),
+      labels: kmLabels,
       datasets: [{
         data: prof.map(p => p.e),
         fill: true,
         borderColor: '#4a7c59',
-        backgroundColor: 'rgba(74,124,89,0.15)',
+        backgroundColor: 'rgba(74,124,89,0.14)',
         borderWidth: 2,
         pointRadius: 0,
         tension: 0.4
       }]
     },
     options: {
-      responsive: true, maintainAspectRatio: true,
+      responsive: true,
+      maintainAspectRatio: true,
       animation: false,
-      plugins: { legend: { display: false }, tooltip: {
-        callbacks: {
-          title: items => items[0].label + ' mi',
-          label: item => item.raw + ' ft'
-        }
-      }},
+      interaction: { mode: 'none' },   // disable built-in hover
+      plugins: {
+        legend:  { display: false },
+        tooltip: { enabled: false }     // we handle it ourselves
+      },
       scales: {
         x: {
           ticks: {
-            maxTicksLimit: 8,
+            maxTicksLimit: 6,
             font: { family: 'Helvetica Neue, Arial, sans-serif', size: 10 },
             color: '#a09070',
-            callback: (v, i, ticks) => {
-              if (i === 0 || i === ticks.length-1 || i % Math.floor(ticks.length/5) === 0) return prof[i]?.d.toFixed(0) + ' mi';
+            callback(v, i) {
+              const step = Math.max(1, Math.floor(prof.length / 5));
+              if (i === 0 || i === prof.length - 1 || i % step === 0)
+                return (prof[i].d * MI2KM).toFixed(0) + ' km';
               return '';
             }
           },
@@ -871,18 +927,70 @@ function buildChart(idx) {
       }
     }
   });
+
+  charts[idx] = chart;
+  setupInteraction(chart, idx);
+}
+
+// ─── Touch / Mouse Interaction ────────────────────────────────────────────────
+function setupInteraction(chart, idx) {
+  const canvas  = chart.canvas;
+  const prof    = ROUTE.days[idx].profile;
+  const readout = document.getElementById('readout-' + idx);
+
+  function getClientX(e) {
+    return e.touches ? e.touches[0].clientX : e.clientX;
+  }
+
+  function update(e) {
+    const rect = canvas.getBoundingClientRect();
+    const cx   = getClientX(e) - rect.left;
+    const ca   = chart.chartArea;
+    if (!ca) return;
+
+    // Clamp to chart area
+    const clamped = Math.max(ca.left, Math.min(cx, ca.right));
+    const ratio   = (clamped - ca.left) / (ca.right - ca.left);
+    const ptIdx   = Math.round(ratio * (prof.length - 1));
+    const pt      = prof[Math.max(0, Math.min(ptIdx, prof.length - 1))];
+
+    const kmStr  = (pt.d * MI2KM).toFixed(1);
+    const ftStr  = pt.e;
+
+    readout.innerHTML =
+      `<span class="r-km">📍 ${kmStr} km</span>` +
+      `<span class="r-sep">·</span>` +
+      `<span class="r-ele">⛰ ${ftStr} ft</span>`;
+
+    // Crosshair pixel position
+    chart._cxX = ca.left + ratio * (ca.right - ca.left);
+    chart._cxY = chart.scales.y.getPixelForValue(pt.e);
+    chart.draw();
+  }
+
+  function reset() {
+    readout.innerHTML = '<span class="r-hint">Touch or hover to inspect elevation</span>';
+    chart._cxX = null;
+    chart._cxY = null;
+    chart.draw();
+  }
+
+  // Mouse
+  canvas.addEventListener('mousemove',  update);
+  canvas.addEventListener('mouseenter', update);
+  canvas.addEventListener('mouseleave', reset);
+
+  // Touch — prevent page scroll while scrubbing chart
+  canvas.addEventListener('touchstart', e => { e.preventDefault(); update(e); }, { passive: false });
+  canvas.addEventListener('touchmove',  e => { e.preventDefault(); update(e); }, { passive: false });
+  canvas.addEventListener('touchend',   e => { e.preventDefault(); /* keep last readout */ }, { passive: false });
 }
 
 // ─── Init ─────────────────────────────────────────────────────────────────────
 window.addEventListener('DOMContentLoaded', () => {
-  // Build all charts
   ROUTE.days.forEach((_, i) => buildChart(i));
-
-  // Fetch weather for all waypoints
   ROUTE.days.forEach((day, di) => {
-    day.waypoints.forEach((wpt, wi) => {
-      fetchWeather(wpt.lat, wpt.lon, `w${di}_${wi}`);
-    });
+    day.waypoints.forEach((wpt, wi) => fetchWeather(wpt.lat, wpt.lon, `w${di}_${wi}`));
   });
 });
 </script>
