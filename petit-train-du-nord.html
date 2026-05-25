@@ -884,13 +884,13 @@ function compassDir(deg) {
 }
 async function fetchWeather(lat, lon, elemId, awElemId, travelBearing) {
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=celsius&windspeed_unit=kmh`;
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=kmh`;
     const res = await fetch(url);
     const d = await res.json();
     const cw = d.current_weather;
     const el = document.getElementById(elemId);
     if (el) {
-      el.textContent = `${wxLabel(cw.weathercode)} · ${Math.round(cw.temperature)}°C · 💨 ${Math.round(cw.windspeed)} km/h ${compassDir(cw.winddirection)}`;
+      el.textContent = `${wxLabel(cw.weathercode)} · ${Math.round(cw.temperature)}°F · 💨 ${Math.round(cw.windspeed)} km/h ${compassDir(cw.winddirection)}`;
       el.classList.remove('loading');
     }
     if (awElemId && travelBearing) {
