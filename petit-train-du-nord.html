@@ -297,6 +297,26 @@
     margin-left: auto; padding-left: 8px; white-space: nowrap; align-self: center;
   }
 
+  /* Apparent wind */
+  .apparent-wind {
+    margin-top: 8px;
+    font-size: 12px;
+    color: var(--subtext);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    font-style: italic;
+  }
+
+  /* Weather note */
+  .weather-note {
+    font-size: 0.78rem;
+    color: var(--muted);
+    text-align: center;
+    margin: 0 0 1.2rem 0;
+    font-style: italic;
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+    letter-spacing: 0.01em;
+  }
+
   /* Footer */
   footer {
     text-align: center; padding: 32px 16px;
@@ -379,6 +399,7 @@
     <canvas id="chart-0"></canvas>
   </div>
 
+  <p class="weather-note">🌡️ Weather shown is current conditions at each waypoint, updated live on page load.</p>
   <div class="timeline">
     <div class="wpt-node">
       <div class="wpt-top">
@@ -388,10 +409,10 @@
             <span>📍 Start</span>
             <span>⛰ 760 ft</span>
           </div>
+          <div class="apparent-wind" id="aw0">🌬 Calculating apparent wind…</div>
         </div>
         <div class="weather-badge loading" id="w0_0">⏳ Loading…</div>
       </div>
-      <div class="wpt-direction">➡️ Heading SE → Les Toits du Monde (42.2 km as the crow flies)</div>
     </div>
     <div class="segment">
       <div class="segment-label">Along the Way</div>
@@ -492,6 +513,7 @@
     <canvas id="chart-1"></canvas>
   </div>
 
+  <p class="weather-note">🌡️ Weather shown is current conditions at each waypoint, updated live on page load.</p>
   <div class="timeline">
     <div class="wpt-node">
       <div class="wpt-top">
@@ -501,10 +523,10 @@
             <span>📍 Start</span>
             <span>⛰ 977 ft</span>
           </div>
+          <div class="apparent-wind" id="aw1">🌬 Calculating apparent wind…</div>
         </div>
         <div class="weather-badge loading" id="w1_0">⏳ Loading…</div>
       </div>
-      <div class="wpt-direction">➡️ Heading SE → Camping De La Diable (41.0 km as the crow flies)</div>
     </div>
     <div class="segment">
       <div class="segment-label">Along the Way</div>
@@ -605,6 +627,7 @@
     <canvas id="chart-2"></canvas>
   </div>
 
+  <p class="weather-note">🌡️ Weather shown is current conditions at each waypoint, updated live on page load.</p>
   <div class="timeline">
     <div class="wpt-node">
       <div class="wpt-top">
@@ -614,10 +637,10 @@
             <span>📍 Start</span>
             <span>⛰ 655 ft</span>
           </div>
+          <div class="apparent-wind" id="aw2">🌬 Calculating apparent wind…</div>
         </div>
         <div class="weather-badge loading" id="w2_0">⏳ Loading…</div>
       </div>
-      <div class="wpt-direction">➡️ Heading SE → Auberge et Spa Beaux Reves (39.4 km as the crow flies)</div>
     </div>
     <div class="segment">
       <div class="segment-label">Along the Way</div>
@@ -718,6 +741,7 @@
     <canvas id="chart-3"></canvas>
   </div>
 
+  <p class="weather-note">🌡️ Weather shown is current conditions at each waypoint, updated live on page load.</p>
   <div class="timeline">
     <div class="wpt-node">
       <div class="wpt-top">
@@ -727,10 +751,10 @@
             <span>📍 Start</span>
             <span>⛰ 909 ft</span>
           </div>
+          <div class="apparent-wind" id="aw3">🌬 Calculating apparent wind…</div>
         </div>
         <div class="weather-badge loading" id="w3_0">⏳ Loading…</div>
       </div>
-      <div class="wpt-direction">➡️ Heading SE → Place de la Gare (24.0 km as the crow flies)</div>
     </div>
     <div class="segment">
       <div class="segment-label">Along the Way</div>
@@ -804,6 +828,45 @@ function showDay(idx) {
   document.querySelectorAll('.tab-btn').forEach((b,i) => b.classList.toggle('active', i === idx));
 }
 
+// ─── Apparent Wind ───────────────────────────────────────────────────────────
+const BEARING_DEG = {N:0,NE:45,E:90,SE:135,S:180,SW:225,W:270,NW:315};
+const CYCLING_SPEED_KMH = 18; // typical trail pace
+
+function calcApparentWind(trueWindSpeed, trueWindFromDeg, travelBearingStr) {
+  const travelDeg = BEARING_DEG[travelBearingStr] ?? 0;
+  const toRad = d => d * Math.PI / 180;
+
+  // True wind "toward" vector (opposite of "from")
+  const wdTo = toRad(trueWindFromDeg + 180);
+  const Vwx = trueWindSpeed * Math.sin(wdTo);
+  const Vwy = trueWindSpeed * Math.cos(wdTo);
+
+  // Cyclist velocity vector (direction of travel)
+  const td = toRad(travelDeg);
+  const Vcx = CYCLING_SPEED_KMH * Math.sin(td);
+  const Vcy = CYCLING_SPEED_KMH * Math.cos(td);
+
+  // Apparent wind = true wind − cyclist velocity (in cyclist's frame)
+  const AWx = Vwx - Vcx;
+  const AWy = Vwy - Vcy;
+  const awSpeed = Math.sqrt(AWx * AWx + AWy * AWy);
+
+  // Apparent wind "from" direction
+  const awToRad = Math.atan2(AWx, AWy);
+  const awFromDeg = ((awToRad * 180 / Math.PI) + 180 + 360) % 360;
+  const awFromDir = compassDir(awFromDeg);
+
+  // Classify feel relative to travel direction
+  const relAngle = ((awFromDeg - travelDeg) + 360) % 360;
+  let feel;
+  if (relAngle <= 45 || relAngle >= 315)       feel = 'headwind';
+  else if (relAngle >= 135 && relAngle <= 225)  feel = 'tailwind';
+  else if (relAngle > 45 && relAngle < 135)     feel = 'crosswind from right';
+  else                                           feel = 'crosswind from left';
+
+  return { speed: Math.round(awSpeed), fromDir: awFromDir, feel };
+}
+
 // ─── Weather ──────────────────────────────────────────────────────────────────
 const WX_CODE = {
   0:'☀️ Clear', 1:'🌤 Mostly Clear', 2:'⛅ Partly Cloudy', 3:'☁️ Overcast',
@@ -819,7 +882,7 @@ function wxLabel(code) { return WX_CODE[code] || '🌡 Unknown'; }
 function compassDir(deg) {
   return ['N','NE','E','SE','S','SW','W','NW'][Math.round(deg/45)%8];
 }
-async function fetchWeather(lat, lon, elemId) {
+async function fetchWeather(lat, lon, elemId, awElemId, travelBearing) {
   try {
     const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=celsius&windspeed_unit=kmh`;
     const res = await fetch(url);
@@ -830,9 +893,18 @@ async function fetchWeather(lat, lon, elemId) {
       el.textContent = `${wxLabel(cw.weathercode)} · ${Math.round(cw.temperature)}°C · 💨 ${Math.round(cw.windspeed)} km/h ${compassDir(cw.winddirection)}`;
       el.classList.remove('loading');
     }
+    if (awElemId && travelBearing) {
+      const aw = calcApparentWind(cw.windspeed, cw.winddirection, travelBearing);
+      const awEl = document.getElementById(awElemId);
+      if (awEl) awEl.textContent = `🌬 Apparent wind: ${aw.speed} km/h from ${aw.fromDir} — ${aw.feel}`;
+    }
   } catch(e) {
     const el = document.getElementById(elemId);
     if (el) { el.textContent = '⚠️ Weather unavailable'; el.classList.remove('loading'); }
+    if (awElemId) {
+      const awEl = document.getElementById(awElemId);
+      if (awEl) awEl.textContent = '';
+    }
   }
 }
 
@@ -990,7 +1062,12 @@ function setupInteraction(chart, idx) {
 window.addEventListener('DOMContentLoaded', () => {
   ROUTE.days.forEach((_, i) => buildChart(i));
   ROUTE.days.forEach((day, di) => {
-    day.waypoints.forEach((wpt, wi) => fetchWeather(wpt.lat, wpt.lon, `w${di}_${wi}`));
+    day.waypoints.forEach((wpt, wi) => {
+      const isStart = wi === 0;
+      const awElemId = isStart ? `aw${di}` : null;
+      const travelBearing = isStart ? wpt.next_bearing : null;
+      fetchWeather(wpt.lat, wpt.lon, `w${di}_${wi}`, awElemId, travelBearing);
+    });
   });
 });
 </script>
