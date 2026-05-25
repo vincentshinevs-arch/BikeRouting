@@ -399,7 +399,7 @@
     <canvas id="chart-0"></canvas>
   </div>
 
-  <p class="weather-note">🌡️ Weather shown is current conditions at each waypoint, updated live on page load.</p>
+  <p class="weather-note">🌡️ Showing forecast for your trip date · Weather forecast begins 16 days before the trip</p>
   <div class="timeline">
     <div class="wpt-node">
       <div class="wpt-top">
@@ -513,7 +513,7 @@
     <canvas id="chart-1"></canvas>
   </div>
 
-  <p class="weather-note">🌡️ Weather shown is current conditions at each waypoint, updated live on page load.</p>
+  <p class="weather-note">🌡️ Showing forecast for your trip date · Weather forecast begins 16 days before the trip</p>
   <div class="timeline">
     <div class="wpt-node">
       <div class="wpt-top">
@@ -627,7 +627,7 @@
     <canvas id="chart-2"></canvas>
   </div>
 
-  <p class="weather-note">🌡️ Weather shown is current conditions at each waypoint, updated live on page load.</p>
+  <p class="weather-note">🌡️ Showing forecast for your trip date · Weather forecast begins 16 days before the trip</p>
   <div class="timeline">
     <div class="wpt-node">
       <div class="wpt-top">
@@ -741,7 +741,7 @@
     <canvas id="chart-3"></canvas>
   </div>
 
-  <p class="weather-note">🌡️ Weather shown is current conditions at each waypoint, updated live on page load.</p>
+  <p class="weather-note">🌡️ Showing forecast for your trip date · Weather forecast begins 16 days before the trip</p>
   <div class="timeline">
     <div class="wpt-node">
       <div class="wpt-top">
@@ -882,29 +882,50 @@ function wxLabel(code) { return WX_CODE[code] || '🌡 Unknown'; }
 function compassDir(deg) {
   return ['N','NE','E','SE','S','SW','W','NW'][Math.round(deg/45)%8];
 }
-async function fetchWeather(lat, lon, elemId, awElemId, travelBearing) {
+const TRIP_DATES = ['2026-08-22', '2026-08-23', '2026-08-24', '2026-08-25'];
+
+async function fetchWeather(lat, lon, elemId, awElemId, travelBearing, tripDate) {
+  const el  = document.getElementById(elemId);
+  const awEl = awElemId ? document.getElementById(awElemId) : null;
   try {
-    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&current_weather=true&temperature_unit=fahrenheit&windspeed_unit=kmh`;
+    // Check if within Open-Meteo's 16-day forecast window
+    const today = new Date(); today.setHours(0,0,0,0);
+    const tripDay = new Date(tripDate + 'T00:00:00');
+    const daysUntil = Math.ceil((tripDay - today) / 86400000);
+
+    if (daysUntil > 16) {
+      const availDate = new Date(tripDay);
+      availDate.setDate(availDate.getDate() - 16);
+      const availStr = availDate.toLocaleDateString('en-US', {month:'short', day:'numeric'});
+      if (el) { el.textContent = `📅 Forecast available ${availStr}`; el.classList.remove('loading'); }
+      if (awEl) awEl.textContent = '';
+      return;
+    }
+
+    const url = `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}` +
+      `&daily=temperature_2m_max,temperature_2m_min,weathercode,windspeed_10m_max,winddirection_10m_dominant` +
+      `&timezone=America%2FToronto&start_date=${tripDate}&end_date=${tripDate}` +
+      `&temperature_unit=fahrenheit&windspeed_unit=kmh`;
     const res = await fetch(url);
     const d = await res.json();
-    const cw = d.current_weather;
-    const el = document.getElementById(elemId);
+    const dd = d.daily;
+    const tMax  = Math.round(dd.temperature_2m_max[0]);
+    const tMin  = Math.round(dd.temperature_2m_min[0]);
+    const wCode = dd.weathercode[0];
+    const wSpd  = Math.round(dd.windspeed_10m_max[0]);
+    const wDir  = dd.winddirection_10m_dominant[0];
+
     if (el) {
-      el.textContent = `${wxLabel(cw.weathercode)} · ${Math.round(cw.temperature)}°F · 💨 ${Math.round(cw.windspeed)} km/h ${compassDir(cw.winddirection)}`;
+      el.textContent = `${wxLabel(wCode)} · ${tMin}–${tMax}°F · 💨 ${wSpd} km/h ${compassDir(wDir)}`;
       el.classList.remove('loading');
     }
-    if (awElemId && travelBearing) {
-      const aw = calcApparentWind(cw.windspeed, cw.winddirection, travelBearing);
-      const awEl = document.getElementById(awElemId);
-      if (awEl) awEl.textContent = `🌬 Apparent wind: ${aw.speed} km/h from ${aw.fromDir} — ${aw.feel}`;
+    if (awEl && travelBearing) {
+      const aw = calcApparentWind(wSpd, wDir, travelBearing);
+      awEl.textContent = `🌬 Apparent wind: ${aw.speed} km/h from ${aw.fromDir} — ${aw.feel}`;
     }
   } catch(e) {
-    const el = document.getElementById(elemId);
     if (el) { el.textContent = '⚠️ Weather unavailable'; el.classList.remove('loading'); }
-    if (awElemId) {
-      const awEl = document.getElementById(awElemId);
-      if (awEl) awEl.textContent = '';
-    }
+    if (awEl) awEl.textContent = '';
   }
 }
 
@@ -1066,7 +1087,7 @@ window.addEventListener('DOMContentLoaded', () => {
       const isStart = wi === 0;
       const awElemId = isStart ? `aw${di}` : null;
       const travelBearing = isStart ? wpt.next_bearing : null;
-      fetchWeather(wpt.lat, wpt.lon, `w${di}_${wi}`, awElemId, travelBearing);
+      fetchWeather(wpt.lat, wpt.lon, `w${di}_${wi}`, awElemId, travelBearing, TRIP_DATES[di]);
     });
   });
 });
